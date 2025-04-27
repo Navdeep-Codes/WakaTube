@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>WakaTube Settings</title>
+</head>
+<body>
+  <h1>WakaTube Settings</h1>
+  <input type="text" id="apiKeyInput" placeholder="Enter your API key">
+  <button id="saveBtn">Save</button>
+
+  <script>
+    document.getElementById('saveBtn').addEventListener('click', () => {
+      const apiKey = document.getElementById('apiKeyInput').value;
+      chrome.storage.sync.set({ apiKey: apiKey }, () => {
+        alert('API Key saved!');
+      });
+    });
+
+    // Load saved key
+    chrome.storage.sync.get(['apiKey'], (result) => {
+      if (result.apiKey) {
+        document.getElementById('apiKeyInput').value = result.apiKey;
+      }
+    });
+  </script>
+</body>
+</html>
